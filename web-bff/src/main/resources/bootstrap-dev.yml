@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: 3217a06c-8490-4d61-909f-ce9ac78f8711
+        file-extension: yml
+        enabled: false
+      discovery:
+        server-addr: localhost:8848
+        namespace: 3217a06c-8490-4d61-909f-ce9ac78f8711
+        enabled: true

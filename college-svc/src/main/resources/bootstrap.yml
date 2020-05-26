@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: college-service
+  profiles:
+    active: @environment@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      show-details: always

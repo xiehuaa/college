@@ -1,0 +1,46 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        # nacos服务地址
+        server-addr: localhost:8848
+        # 命名空间  默认为default
+        namespace: 3217a06c-8490-4d61-909f-ce9ac78f8711
+        # 配置文件后缀 默认为为properties
+        file-extension: yml
+        # 是否启用配置中心
+        enabled: false
+      discovery:
+        server-addr: localhost:8848
+        namespace: 3217a06c-8490-4d61-909f-ce9ac78f8711
+        # 是否启用注册中心  默认为true
+        enabled: true
+    gateway:
+      # 是否使用gateway网关
+      enabled: true
+      discovery:
+        locator:
+          # 开启通过服务名称从注册中心获取服务
+          enabled: true
+      routes:
+        - id: manage_route
+          # 转发的服务 lb标示从注册中心获取服务
+          uri: lb://manage-bff
+          # 转发规则 满足Path后进行转发
+          predicates:
+            - Path=/mamage/**
+          # 配置拦截器
+          filters:
+            # 将路径去掉一层后进行转发  在该路由中会调用manage-service服务的/**接口
+            - StripPrefix=1
+
+        - id: web_route
+          # 转发的服务 lb标示从注册中心获取服务
+          uri: lb://web-bff
+          # 转发规则 满足Path后进行转发
+          predicates:
+            - Path=/web/**
+          # 配置拦截器
+          filters:
+            # 将路径去掉一层后进行转发  在该路由中会调用manage-service服务的/**接口
+            - StripPrefix=1
